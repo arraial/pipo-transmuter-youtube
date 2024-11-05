@@ -1,0 +1,77 @@
+default:
+  log:
+    level: INFO
+    encoding: utf-8
+    format: "%(asctime)s - %(levelname)s - %(name)s - %(message)s"
+  probes:
+    port: 80
+    log_level: info
+    readiness:
+      timeout: 5
+  # Application name
+  app:
+  server_id: "@format {this.CHANNEL}"
+  main_task_name: "main_task"
+  player:
+    queue:
+      broker:
+        host:
+        vhost:
+        port:
+        timeout: 240
+        graceful_timeout: 480     # TODO check if (mili)seconds
+        max_consumers: 10
+      service:
+        transmuter:
+          exchange: providers
+          routing_key: provider
+          youtube:
+            queue: youtube
+            routing_key: "@format {this.PLAYER__QUEUE__SERVICE__TRANSMUTER__ROUTING_KEY}.youtube.url"
+            args:
+              x-dead-letter-exchange: dlx
+              x-dead-letter-routing-key: "dl.youtube"
+              x-queue-type: quorum
+              x-delivery-limit: 3
+              message-ttl: 43200000 # 12 hours
+          youtube_query:
+            queue: youtube_query
+            routing_key: "@format {this.PLAYER__QUEUE__SERVICE__TRANSMUTER__ROUTING_KEY}.youtube.query"
+            message_priority: 1
+            args:
+              x-dead-letter-exchange: dlx
+              x-dead-letter-routing-key: "dl.youtube_query"
+              x-queue-type: quorum
+              x-delivery-limit: 3
+              message-ttl: 3600000 # 1 hour
+          youtube_playlist:
+            queue: youtube_playlist
+            routing_key: "@format {this.PLAYER__QUEUE__SERVICE__TRANSMUTER__ROUTING_KEY}.youtube.playlist"
+            message_priority: 1
+            args:
+              x-dead-letter-exchange: dlx
+              x-dead-letter-routing-key: "dl.youtube_playlist"
+              x-queue-type: quorum
+              x-delivery-limit: 3
+              message-ttl: 3600000 # 1 hour
+        hub:
+          base_routing_key: hub
+          exchange: processed_music
+    source:
+      youtube:
+        query_timeout: 5    # seconds
+        playlist_parser_config:
+          extract_flat: true
+        downloader_config:    # YoutubeDL music download method args
+          format: bestaudio/best
+test:
+  dynaconf_merge: true
+  log:
+    level: DEBUG
+  channel: "test-channel"
+  voice_channel: "test-vchannel"
+  server_id: "TEST"
+  player:
+    queue:
+      remote: false
+      max_local_music: 100
