@@ -49,11 +49,11 @@ YOUTUBE_PLAYLIST_SOURCE_3 = (
 )
 YOUTUBE_PLAYLIST_3 = "https://www.youtube.com/watch?v=_-uMPb63e8U&list=PLh_2AL0cs37xUwRGScAmHpCY_vxKlgqRB"
 YOUTUBE_QUERY_0 = ""
-YOUTUBE_QUERY_1 = "yellow"
+YOUTUBE_QUERY_1 = "yellow submarine"
 YOUTUBE_QUERY_SOURCE_1 = (
-    "https://www.youtube.com/watch?v=yKNxeF4KMsY"  # Coldplay - Yellow
-)
-YOUTUBE_QUERY_2 = "submarine"
-YOUTUBE_QUERY_SOURCE_2 = (
     "https://www.youtube.com/watch?v=m2uTFF_3MaA"  # The Beatles - Yellow Submarine
+)
+YOUTUBE_QUERY_2 = "eye of the tiger"
+YOUTUBE_QUERY_SOURCE_2 = (
+    "https://www.youtube.com/watch?v=btPJPFnesV4"  # Survivor - Eye Of The Tiger
 )
