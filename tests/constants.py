@@ -35,11 +35,11 @@ YOUTUBE_URL_COMPLEX_LIST = [
     YOUTUBE_URL_4,
     YOUTUBE_URL_5,
 ]
-YOUTUBE_PLAYLIST_CONTENT_1 = "https://www.youtube.com/watch?v=BaW_jenozKc"
+YOUTUBE_PLAYLIST_CONTENT_1 = "https://www.youtube.com/watch?v=ZtKX0NBpYgs"
 YOUTUBE_PLAYLIST_SOURCE_1 = (
-    "https://www.youtube.com/playlist?list=PL4lCao7KL_QFVb7Iudeipvc2BCavECqzc"
+    "https://www.youtube.com/playlist?list=PL6_qhP3eWX5O0ELIV_eJzf6cJ4Yix5D7U"
 )
-YOUTUBE_PLAYLIST_1 = "https://www.youtube.com/watch?v=BaW_jenozKc&list=PL4lCao7KL_QFVb7Iudeipvc2BCavECqzc&index=1"
+YOUTUBE_PLAYLIST_1 = "https://www.youtube.com/watch?v=ZtKX0NBpYgs&list=PL6_qhP3eWX5O0ELIV_eJzf6cJ4Yix5D7U"
 YOUTUBE_PLAYLIST_SOURCE_2 = (
     "https://www.youtube.com/playlist?list=PLhpLyZ-aL82gssiK-uYP71UD5vgm_T-ZK"
 )
