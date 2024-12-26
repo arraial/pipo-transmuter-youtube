@@ -7,7 +7,7 @@ from pipo_transmuter_youtube.models import ProviderOperation
 from pipo_transmuter_youtube.config import settings
 from pipo_transmuter_youtube._queues import (
     router,
-    broker,
+    get_broker,
     transmute_youtube,
     provider_exch,
 )
@@ -45,7 +45,7 @@ class TestTransmuteUrl:
         uuid = Helpers.generate_uuid()
 
         async with TestRabbitBroker(
-            broker, with_real=settings.player.queue.remote
+            get_broker(), with_real=settings.player.queue.remote
         ) as br:
             operation_request = ProviderOperation(
                 uuid=uuid,
