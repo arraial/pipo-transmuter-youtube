@@ -1,10 +1,9 @@
 import re
 import httpx
 import yt_dlp
-from enum import StrEnum
 import logging
+from enum import StrEnum
 from typing import Iterator, Optional
-from dataclasses import dataclass
 
 from requests.utils import requote_uri
 
