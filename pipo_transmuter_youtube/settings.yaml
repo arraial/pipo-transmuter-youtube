@@ -74,7 +74,8 @@ default:
         query_timeout: 5    # seconds
         playlist_parser_config:
           extract_flat: true
-        downloader_config:    # YoutubeDL music download method args
+          playlist_items: '1:25'  # maximum of videos to process from playlists
+        downloader_config:        # YoutubeDL music download method args
           format: bestaudio/best
 test:
   dynaconf_merge: true

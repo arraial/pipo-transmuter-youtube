@@ -4,7 +4,6 @@ import yt_dlp
 import logging
 from enum import StrEnum
 from typing import Iterator, Optional
-
 from requests.utils import requote_uri
 
 from pipo_transmuter_youtube.config import settings

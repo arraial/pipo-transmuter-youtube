@@ -16,7 +16,6 @@ from pipo_transmuter_youtube._queues import (
 )
 
 
-@pytest.mark.spotify
 @pytest.mark.remote_queue
 class TestTransmutePlaylist:
     @pytest.mark.parametrize(

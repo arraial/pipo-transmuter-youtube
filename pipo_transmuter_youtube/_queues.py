@@ -2,7 +2,6 @@ import ssl
 import logging
 
 from opentelemetry import metrics, trace
-from opentelemetry.trace import SpanKind
 from prometheus_client import REGISTRY
 from faststream.rabbit import (
     ExchangeType,
@@ -115,7 +114,6 @@ processed_query_success_counter = meter.create_counter(
     description="Produces to provider topic with provider.youtube.url key with increased priority",
     priority=settings.player.queue.service.transmuter.youtube_query.message_priority,
 )
-@tracer.start_as_current_span("query", kind=SpanKind.SERVER)
 async def transmute_youtube_query(
     request: ProviderOperation,
     logger: Logger,
@@ -141,13 +139,18 @@ processed_playlist_success_counter = meter.create_counter(
     unit="requests",
 )
 
+processed_playlist_songs = meter.create_histogram(
+    name="pipo.playlist.songs",
+    description="Number of songs contained in processed playlists",
+    unit="songs",
+)
+
 
 @router.subscriber(
     queue=youtube_playlist_queue,
     exchange=provider_exch,
     description="Consumes from provider topic with provider.youtube.playlist key",
 )
-@tracer.start_as_current_span("playlist", kind=SpanKind.SERVER)
 async def transmute_youtube_playlist(
     request: ProviderOperation,
     logger: Logger,
@@ -155,6 +158,7 @@ async def transmute_youtube_playlist(
 ) -> None:
     logger.debug("Received request: %s", request)
     tracks = YoutubeHandler.parse_playlist(request.query)
+    tracks_len = 0
     for url in tracks:
         query = ProviderOperation(
             uuid=request.uuid,
@@ -163,12 +167,14 @@ async def transmute_youtube_playlist(
             operation=YoutubeOperations.URL,
             query=url,
         )
+        tracks_len += 1
         await youtube_playlist_publisher.publish(
             query,
             correlation_id=correlation_id,
         )
     logger.info("Transmuted youtube playlist: %s", request.uuid)
     processed_playlist_success_counter.add(1)
+    processed_playlist_songs.record(tracks_len, {"source": "youtube"})
 
 
 processed_url_success_counter = meter.create_counter(
@@ -183,7 +189,6 @@ processed_url_success_counter = meter.create_counter(
     exchange=provider_exch,
     description="Consumes from provider topic with provider.youtube.url key and produces to hub exchange",
 )
-@tracer.start_as_current_span("url", kind=SpanKind.SERVER)
 async def transmute_youtube(
     request: ProviderOperation,
     logger: Logger,

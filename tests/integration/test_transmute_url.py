@@ -30,7 +30,6 @@ async def consume_dummy(
     pass
 
 
-@pytest.mark.spotify
 @pytest.mark.remote_queue
 class TestTransmuteUrl:
     @pytest.mark.parametrize(
