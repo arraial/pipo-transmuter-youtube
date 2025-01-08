@@ -9,6 +9,7 @@ DOCUMENTATION=docs
 DIAGRAMS_FORMAT=plantuml
 TEST_FOLDER=./tests
 TEST_SECRETS:=$(shell realpath $(TEST_FOLDER)/.secrets.*)
+SECRETS_JSON=$(shell echo '{"queue_broker_url": "$(TEST_RABBITMQ_URL)"}')
 
 .PHONY: help
 help:
@@ -75,7 +76,7 @@ lint: check vulture
 
 .PHONY: test_secrets_file
 test_secrets_file:
-	@echo '{"test":{"queue_broker_url": "$(TEST_RABBITMQ_URL)"}}' | jq . > $(TEST_FOLDER)/.secrets.json
+	@echo '{"test": $(SECRETS_JSON)}' | jq . > $(TEST_FOLDER)/.secrets.json
 	@echo $(TEST_SECRETS)
 
 .PHONY: test
