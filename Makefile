@@ -24,7 +24,6 @@ help:
 	$(PRINT) "    docs          generate code documentation"
 	$(PRINT) "    metrics 		evaluate source code quality"
 	$(PRINT) "    test          run test suite"
-	$(PRINT) "    test_secrets	use env variable to generate secrets file for test suite"
 	$(PRINT) "    coverage      run coverage analysis"
 	$(PRINT) "    set_version   set program version"
 	$(PRINT) "    dist          package application for distribution"

@@ -10,4 +10,4 @@ jobs:
     uses: arraial/workflows/.github/workflows/python.yml@main
     secrets: inherit
     with:
-      app_name: pipo_hub
+      app_name: ${{ vars.APP_NAME }}
