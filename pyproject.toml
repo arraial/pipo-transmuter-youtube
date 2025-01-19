@@ -35,7 +35,7 @@ classifiers = [
 python = "^3.11"
 uuid6 = "^2024.7"
 httpx = "0.28.1"
-yt-dlp = { version = "^2024.12", extras = ["default"] }
+yt-dlp = { version = "^2025.1", extras = ["default"] }
 dynaconf = { version = "~3.2.0", extras = ["yaml"] }
 fastapi = { version = "~0.115.4", extras = ["standard"] }
 faststream = { version = "0.5.33", extras = ["rabbit", "otel", "prometheus"] }
