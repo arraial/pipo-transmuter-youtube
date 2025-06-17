@@ -9,10 +9,10 @@ on:
 
 jobs:
   docker:
-    uses: arraial/workflows/.github/workflows/docker.yml@0.0.5
-    secrets: inherit
+    uses: arraial/workflows/.github/workflows/docker.yml@0.0.8
     with:
       image_name: ${{ vars.CONTAINER_TAG }}
+    secrets: inherit
     permissions:
       contents: write
       packages: write
